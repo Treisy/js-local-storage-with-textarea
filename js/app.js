@@ -8,6 +8,9 @@ eventListeners();
 function eventListeners() {
     // Send Form
     document.querySelector('#formulario').addEventListener('submit', addTweet);
+
+    // Delete Tweets
+    listaTweets.addEventListener('click', deleteTweet);
 }
 
 // Functions
@@ -30,7 +33,13 @@ function addTweet(e) {
     li.innerText = tweet;
     li.appendChild(btnBorrar);
     listaTweets.appendChild(li);
+}
 
-    
+function deleteTweet(e) {
+    e.preventDefault();
 
+    if(e.target.className === 'borrar-tweet') {
+        console.log(e.target.parentElement.remove());
+        alert('Tweet Deleted');
+    }
 }
