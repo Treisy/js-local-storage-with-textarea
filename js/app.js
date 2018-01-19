@@ -33,6 +33,9 @@ function addTweet(e) {
     li.innerText = tweet;
     li.appendChild(btnBorrar);
     listaTweets.appendChild(li);
+
+    // Add Local Storage
+    addTweetLocalStorage(tweet);
 }
 
 function deleteTweet(e) {
@@ -42,4 +45,28 @@ function deleteTweet(e) {
         console.log(e.target.parentElement.remove());
         alert('Tweet Deleted');
     }
+}
+
+function addTweetLocalStorage(tweet) {
+    let tweets;
+
+    tweets = getTweetsLocalStorage();
+
+    // Add new tweet
+    tweets.push(tweet);
+
+    // Convert string to array for local storage
+    localStorage.setItem('tweets', JSON.stringify(tweets));
+}
+
+function getTweetsLocalStorage() {
+    let tweets;
+
+    if(localStorage.getItem('tweets') === null) {
+        tweets = [];
+    } else {
+        tweets = JSON.parse(localStorage.getItem('tweets'));
+    }
+
+    return tweets;
 }
