@@ -11,6 +11,9 @@ function eventListeners() {
 
     // Delete Tweets
     listaTweets.addEventListener('click', deleteTweet);
+
+    // DOM Content
+    document.addEventListener("DOMContentLoaded", localStorageReady);
 }
 
 // Functions
@@ -69,4 +72,23 @@ function getTweetsLocalStorage() {
     }
 
     return tweets;
+}
+
+function localStorageReady() {
+    let tweets;
+
+    tweets = getTweetsLocalStorage();
+
+    tweets.forEach(function(tweet) {
+        // Create btnBorrar
+        const btnBorrar = document.createElement('a');
+        btnBorrar.classList = 'borrar-tweet';
+        btnBorrar.innerText = 'X';
+
+        // Create element and add content
+        const li = document.createElement('li');
+        li.innerText = tweet;
+        li.appendChild(btnBorrar);
+        listaTweets.appendChild(li);
+    });
 }
