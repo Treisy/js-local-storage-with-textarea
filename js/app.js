@@ -45,8 +45,8 @@ function deleteTweet(e) {
     e.preventDefault();
 
     if(e.target.className === 'borrar-tweet') {
-        console.log(e.target.parentElement.remove());
-        alert('Tweet Deleted');
+        e.target.parentElement.remove();
+        deleteTweetLocalStorage(e.target.parentElement.innerText);
     }
 }
 
@@ -91,4 +91,21 @@ function localStorageReady() {
         li.appendChild(btnBorrar);
         listaTweets.appendChild(li);
     });
+}
+
+function deleteTweetLocalStorage(tweet) {
+    let tweets,
+        tweetDelete;
+
+    tweetDelete = tweet.substring(0, tweet.length - 1);
+    
+    tweets = getTweetsLocalStorage();
+
+    tweets.forEach(function(tweet, index) {
+        if(tweetDelete === tweet) { 
+            tweets.splice(index, 1);
+        }
+    });
+
+    localStorage.setItem('tweets', JSON.stringify(tweets));
 }
